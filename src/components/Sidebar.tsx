@@ -1,7 +1,7 @@
 
 const Sidebar = ({ onRegisterClick }: { onRegisterClick: () => void }) => {
   return (
-    <div className="flex flex-col space-y-3 items-center rounded-lg shadow-md h-5/6 justify-between">
+    <div className="flex flex-col space-y-3 items-center rounded-lg py-3 shadow-md min-h-[80vh] justify-between">
       <button
         onClick={onRegisterClick}
         className=" bg-gray-100 text-dark font-semibold font-mono p-1 rounded-xl w-full aspect-video"
