@@ -1,35 +1,41 @@
 'use client';
 
 import React, { useState } from 'react';
-import { registerUser } from '../services/api';
+import { loginUser } from '../services/api';
 
-const Register = () => {
+const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  const handleRegister = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setSuccess('');
 
     try {
-      const response = await registerUser(username, password);
-      setSuccess(`User ${response.data.username} registered successfully!`);
+      const response = await loginUser(username, password);
+      const token = response.data.token; 
+      localStorage.setItem('token', token); 
+      console.log('Token: ' + localStorage.getItem('token'));
       setUsername('');
       setPassword('');
+      if (localStorage.getItem('token') === 'undefined') {
+        setError('Login failed. Please check your username and password.');
+      } else {
+        setSuccess(`Welcome back ${username}!`);
+      }
     } catch (err) {
-      setError('Registration failed. Please try again.');
+      setError('Login failed. Please check your username and password.');
       console.error(err);
     }
   };
 
   return (
     <div className="flex flex-col items-center">
-      <h2 className="text-2xl font-bold text-dark">Create an Account</h2>
-      <span className=" text-zinc-400">Username & Password must be at least 3 characters long!</span>
-      <form onSubmit={handleRegister} className="flex flex-col mt-4">
+      <h2 className="text-2xl font-bold text-dark">Login to Your Account</h2>
+      <form onSubmit={handleLogin} className="flex flex-col mt-4">
         <input
           type="text"
           placeholder="Username"
@@ -47,7 +53,7 @@ const Register = () => {
           required
         />
         <button type="submit" className="bg-blue-600 text-white p-2 rounded shadow-neutral-800 shadow-sm">
-          Register
+          Login
         </button>
       </form>
       {error && <p className="text-red-500 mt-2">{error}</p>}
@@ -56,4 +62,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
