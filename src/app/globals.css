@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #353535;
+  --foreground: #ededed;
+  --text-color-light: #ededed;
+  --text-color-dark: #353535;
+  --text-color-medium: #858585;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.text-light {
+  color: var(--text-color-light); /* Class for light text */
+}
+
+.text-dark {
+  color: var(--text-color-dark); /* Class for dark text */
+}
+
+.text-medium {
+  color: var(--text-color-medium);
+}
+
+@font-face {
+  font-family: 'Leckerli One';
+  src: url('./fonts/LeckerliOne-Regular.ttf') format('truetype'); /* Adjust path if necessary */
+  font-weight: 300;
+  font-style: normal;
+}
