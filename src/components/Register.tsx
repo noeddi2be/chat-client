@@ -46,7 +46,7 @@ const Register = () => {
           className="mb-2 p-2 border rounded text-dark"
           required
         />
-        <button type="submit" className="bg-blue-600 text-white p-2 rounded shadow-neutral-800 shadow-sm">
+        <button type="submit" className="bg-blue-400 text-white p-2 rounded shadow-neutral-800 shadow-sm">
           Register
         </button>
       </form>

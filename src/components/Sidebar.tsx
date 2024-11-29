@@ -2,11 +2,15 @@ interface SidebarProps {
   onRegisterClick: () => void;
   onLoginClick: () => void;
   onLogoutClick: () => void;
+  onUsersClick: () => void;
+  onChatClick: () => void;
 }
 const Sidebar = ({
   onRegisterClick,
   onLoginClick,
-  onLogoutClick
+  onLogoutClick,
+  onUsersClick,
+  onChatClick
 }: SidebarProps) => {
   return (
     <div className="flex flex-col space-y-3 items-center rounded-lg w-full py-8 shadow-md min-h-[80vh] justify-between">
@@ -45,7 +49,7 @@ const Sidebar = ({
         </div>
       </button>
       <button
-        // onClick={onUsersClick}
+        onClick={onUsersClick}
         className="bg-yellow-400 text-dark font-semibold rounded-lg shadow-neutral-800 shadow-md w-full aspect-video"
       >
         <div className="flex flex-col items-center justify-center">
@@ -62,7 +66,7 @@ const Sidebar = ({
         </div>
       </button>
       <button
-        // onClick={onChatClick}
+        onClick={onChatClick}
         className="bg-yellow-400 text-dark font-semibold rounded-lg shadow-neutral-800 shadow-md w-full aspect-video"
       >
         <div className="flex flex-col items-center justify-center">
