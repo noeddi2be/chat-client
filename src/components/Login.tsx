@@ -25,6 +25,7 @@ const Login = () => {
         setError('Login failed. Please check your username and password.');
       } else {
         setSuccess(`Welcome back ${username}!`);
+        localStorage.setItem('username', username);
       }
     } catch (err) {
       setError('Login failed. Please check your username and password.');

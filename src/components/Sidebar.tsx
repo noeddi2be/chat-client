@@ -4,16 +4,58 @@ interface SidebarProps {
   onLogoutClick: () => void;
   onUsersClick: () => void;
   onChatClick: () => void;
+  onServerClick: () => void;
+  onTokenClick: () => void;
 }
 const Sidebar = ({
   onRegisterClick,
   onLoginClick,
   onLogoutClick,
   onUsersClick,
-  onChatClick
+  // onChatClick,
+  onServerClick,
+  onTokenClick
 }: SidebarProps) => {
   return (
     <div className="flex flex-col space-y-3 items-center rounded-lg w-full py-8 shadow-md min-h-[80vh] justify-between">
+      <button
+        onClick={onServerClick}
+        className=" bg-blue-400 text-dark font-semibold p-1 rounded-lg shadow-neutral-800 shadow-md w-full aspect-video"
+      >
+        <div className="flex flex-col items-center justify-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="currentColor"
+          >
+            <path
+              d="M360-400h260q42 0 71-29.5t29-71.5q0-42-30-71t-72-29q-8-51-47-85t-91-34q-41 0-75 22t-51 59q-48 2-81 36.5T240-520q0 50 35 85t85 35Zm0-80q-17 0-28.5-11.5T320-520q0-17 11.5-28.5T360-560h50v-10q0-29 20.5-49.5T480-640q29 0 49.5 20.5T550-570v50h70q8 0 14 6t6 14q0 8-6 14t-14 6H360Zm-40 360v-80h80v-80H160q-33 0-56.5-23.5T80-360v-400q0-33 23.5-56.5T160-840h640q33 0 56.5 23.5T880-760v400q0 33-23.5 56.5T800-280H560v80h80v80H320ZM160-360h640v-400H160v400Zm0 0v-400 400Z"
+            />
+          </svg>
+          Server
+        </div>
+      </button>
+      <button
+        onClick={onTokenClick}
+        className=" bg-blue-400 text-dark font-semibold p-1 rounded-lg shadow-neutral-800 shadow-md w-full aspect-video"
+      >
+        <div className="flex flex-col items-center justify-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="currentColor"
+          >
+            <path
+              d="M480-280q83 0 141.5-58.5T680-480q0-83-58.5-141.5T480-680q-83 0-141.5 58.5T280-480q0 83 58.5 141.5T480-280Zm0 200q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"
+            />
+          </svg>
+          Token
+        </div>
+      </button>
       <button
         onClick={onRegisterClick}
         className=" bg-blue-400 text-dark font-semibold p-1 rounded-lg shadow-neutral-800 shadow-md w-full aspect-video"
@@ -65,7 +107,7 @@ const Sidebar = ({
           Users
         </div>
       </button>
-      <button
+      {/* <button
         onClick={onChatClick}
         className="bg-yellow-400 text-dark font-semibold rounded-lg shadow-neutral-800 shadow-md w-full aspect-video"
       >
@@ -81,7 +123,7 @@ const Sidebar = ({
           </svg>
           Chat
         </div>
-      </button>
+      </button> */}
       <button
         onClick={onLogoutClick}
         className="bg-red-400 text-dark font-semibold rounded-lg shadow-neutral-800 shadow-md w-full aspect-video"
