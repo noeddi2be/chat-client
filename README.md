@@ -31,12 +31,12 @@ node -v
 npm -v
 ```
 
-**Install the necessary dependencies with:**
+**Install the necessary dependencies from inside the project folder with:**
 ```shell
 npm install
 ```
 
-**Start the project with:**
+**Start the project from inside the project folder with:**
 ```shell
 npm run dev
 ```
