@@ -154,8 +154,37 @@ required
 ```
 
 When the chat window is opened, the online status of the current user is indicated to the on top of the chat. Messages in the chat are only stored as long as the window is opened. The server deletes all the messages from the chats, and in the current implementation of this app, the messages are also not persisted by the client.
+**EDIT:**
+Chats are now stored in local storage. Whenever a new message arives, the message get's stored in local storage. This functionality has been added very quickly and Copilot was used to support developing the process of storing the elements in local storage:
 
-When clicking `Logout` the current user is logged out, the token and the username are deleted from local storage on the client side, and also from the server.
+```tsx
+if (response.data.messages && response.data.messages.length > 0) {
+response.data.messages.forEach((msg) => {
+    // Update the message stack for each user
+    // Added with the help of Copilot
+    setMessagesByUser((prev) => {
+    const updatedMessages = {
+        ...prev,
+        [msg.username]: [
+        ...(prev[msg.username] || []),
+        { username: msg.username, text: msg.message },
+        ],
+    };
+    // Save to localStorage
+    // Added with the help of Copilot
+    localStorage.setItem('messages', JSON.stringify(updatedMessages));
+    return updatedMessages;
+    });
+});
+}
+```
+Additionally i have altered the selection for the user to chat with, so there is also an element that displays all the users who have sent messages. In a further step, the stored element could be adjusted to hold an additional value (read / unread). Through that, colorization for new messages would be supported. In that every time that a message is added to the stack, or the messages are retrieved from the stack, that state would be updated and rendered accordingly in the UI.
+
+<p align="center">
+    <img src="github-media/select-user-2.png" width="60%" height="auto" allign-center>
+</p>
+
+Finally, after clicking `Logout` the current user is logged out, the token and the username are deleted from local storage on the client side, and also from the server.
 
 <p align="center">
     <img src="github-media/logged-out.png" width="60%" height="auto" allign-center>
