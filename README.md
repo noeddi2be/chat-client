@@ -178,7 +178,7 @@ response.data.messages.forEach((msg) => {
 });
 }
 ```
-Additionally i have altered the selection for the user to chat with, so there is also an element that displays all the users who have sent messages. In a further step, the stored element could be adjusted to hold an additional value (read / unread). Through that, colorization for new messages would be supported. In that every time that a message is added to the stack, or the messages are retrieved from the stack, that state would be updated and rendered accordingly in the UI.
+Additionally, I have altered the selection for the user to chat with, so there is also an element that displays all the users who have sent messages. In a further step, the stored element could be adjusted to hold an additional value (read / unread). Through that, colorization for new messages would be supported. In that every time that a message is added to the stack, or the messages are retrieved from the stack, that state would be updated and rendered accordingly in the UI.
 
 <p align="center">
     <img src="github-media/select-user-2.png" width="60%" height="auto" allign-center>
