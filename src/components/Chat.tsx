@@ -7,7 +7,7 @@ import { sendMessage as sendMessageApi, pollMessages, checkUserOnline } from "@/
 const Chat = ({ chatWith }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-  const [isOnline, setIsOnline] = useState(false); 
+  const [isOnline, setIsOnline] = useState(false);
 
   const checkOnlineStatus = async () => {
     const token = localStorage.getItem("token");
@@ -20,8 +20,8 @@ const Chat = ({ chatWith }) => {
   };
 
   const send = async (e) => {
-    e.preventDefault(); 
-    if (newMessage.trim()) { 
+    e.preventDefault();
+    if (newMessage.trim()) {
       const token = localStorage.getItem("token");
       try {
         const response = await sendMessageApi(token, chatWith, newMessage);
@@ -29,7 +29,7 @@ const Chat = ({ chatWith }) => {
         if (response.data.send) {
           setMessages((prevMessages) => [
             ...prevMessages,
-            { username: "You", text: newMessage }, 
+            { username: "You", text: newMessage },
           ]);
           setNewMessage("");
         } else {
@@ -50,10 +50,12 @@ const Chat = ({ chatWith }) => {
       const response = await pollMessages(token);
 
       if (response.data.messages && response.data.messages.length > 0) {
-        const newMessages = response.data.messages.map(msg => ({
-          username: msg.username,
-          text: msg.message,
-        }));
+        const newMessages = response.data.messages
+          .filter(msg => msg.username === chatWith)
+          .map(msg => ({
+            username: msg.username,
+            text: msg.message,
+          }));
 
         setMessages((prevMessages) => [
           ...prevMessages,
@@ -72,7 +74,7 @@ const Chat = ({ chatWith }) => {
 
     const intervalId = setInterval(fetchMessages, 5000);
 
-    return () => clearInterval(intervalId); 
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
