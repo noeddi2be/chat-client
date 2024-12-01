@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-const API_URL = 'http://javaprojects.ch:50001';
+let API_URL = 'http://javaprojects.ch:50001';
+
+export const setApiUrl = (url) => {
+  API_URL = url;
+  axios.defaults.baseURL = API_URL;
+};
 
 // Set up interceptors for debugging in browser console:
 axios.interceptors.request.use(request => {

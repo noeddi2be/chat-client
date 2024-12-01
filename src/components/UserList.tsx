@@ -36,7 +36,7 @@ const UserList = ({ onUserSelect }) => {
   return (
     <div className="max-h-[80vh] w-full flex flex-col items-center justify-center p-4 bg-gray-100 rounded-lg">
       <h2 className="text-xl font-bold mb-4 text-dark text-center">Select a user to Chat:</h2>
-      <ul className="bg-white rounded-lg p-4 w-5/12 overflow-y-auto text-center">
+      <ul className="bg-white shadow-md rounded-lg p-4 w-5/12 overflow-y-auto text-center">
         {users.map((user, index) => (
           <li key={index} className="p-1">
             <button
@@ -51,7 +51,7 @@ const UserList = ({ onUserSelect }) => {
       </ul>
       <button
         onClick={handleConfirmSelection}
-        className="mt-4 p-2 bg-yellow-400 text-dark font-bold rounded-lg w-3/12"
+        className="mt-4 p-2 bg-yellow-400 text-dark shadow-neutral-800 shadow-sm font-bold rounded-lg w-3/12"
         disabled={!selectedUser} // Disable button if no user is selected
       >
         Chat

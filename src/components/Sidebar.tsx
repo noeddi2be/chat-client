@@ -3,7 +3,7 @@ interface SidebarProps {
   onLoginClick: () => void;
   onLogoutClick: () => void;
   onUsersClick: () => void;
-  onChatClick: () => void;
+  // onChatClick: () => void;
   onServerClick: () => void;
   onTokenClick: () => void;
 }

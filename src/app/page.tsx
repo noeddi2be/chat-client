@@ -6,26 +6,32 @@ import Register from '../components/Register';
 import Login from '../components/Login';
 import Chat from '../components/Chat';
 import UserList from '../components/UserList';
-import { logoutUser, pingServer, checkToken } from '../services/api';
+import ServerAddress from '../components/ServerAddress';
+// import { pingServer } from '../services/api';
+import { logoutUser, checkToken } from '../services/api';
 
-type View = 'welcome' | 'register' | 'login';
+type View = 'welcome' | 'register' | 'login' | 'server';
 
 export default function Home() {
   const [currentView, setCurrentView] = useState<View>('welcome');
   const [message, setMessage] = useState<string>('');
   const [selectedUser, setSelectedUser] = useState(null); 
 
-  const handlePingClick = async () => {
-    try {
-      const response = await pingServer();
-      const firstKey = Object.keys(response.data)[0];
-      const firstValue = response.data[firstKey];
-      alert("Server is reachable: " + firstValue.toString()[0].toUpperCase() + firstValue.toString().substring(1));
-    } catch (error) {
-      console.error("Error pinging server: ", error);
-      alert("Error pinging server: " + error.message);
-    }
-  };
+  // const handlePingClick = async () => {
+  //   try {
+  //     const response = await pingServer();
+  //     const firstKey = Object.keys(response.data)[0];
+  //     const firstValue = response.data[firstKey];
+  //     alert("Server is reachable: " + firstValue.toString()[0].toUpperCase() + firstValue.toString().substring(1));
+  //   } catch (error) {
+  //     console.error("Error pinging server: ", error);
+  //     alert("Error pinging server: " + error.message);
+  //   }
+  // };
+
+  const handleServerClick = () => {
+    setCurrentView('server');
+  }
 
   const handleCheckToken = async () => {
     const token = localStorage.getItem("token");
@@ -42,7 +48,7 @@ export default function Home() {
 
   const handleRegisterClick = () => {
     const token = localStorage.getItem('token');
-    if (token !== null) {
+    if (token !== null && token !== 'undefined') {
       alert("You must log out before registering a new account.");
     } else {
       setCurrentView('register');
@@ -51,8 +57,9 @@ export default function Home() {
 
   const handleLoginClick = () => {
     const token = localStorage.getItem('token');
-    if (token !== null) {
+    if (token !== null && token !== 'undefined') {
       alert("You are already logged in as: " + localStorage.getItem('username'));
+      console.log(localStorage.getItem('token'));
     } else {
       setCurrentView('login');
     }
@@ -60,7 +67,7 @@ export default function Home() {
 
   const handleUsersClick = () => {
     const token = localStorage.getItem('token');
-    if (token === null) {
+    if (token === null || token === 'undefined') {
       alert("You must log in before viewing users.");
     } else {
     setCurrentView('users'); 
@@ -74,7 +81,7 @@ export default function Home() {
 
   const handleChatClick = () => {
     const token = localStorage.getItem('token');
-    if (token === null) {
+    if (token === null || token === 'undefined') {
       alert("You must log in before chatting with a user.");
     } else {
       setCurrentView('chat');
@@ -83,7 +90,7 @@ export default function Home() {
 
   const handleLogoutClick = async () => {
     const token = localStorage.getItem('token');
-    if (token) {
+    if (token && token !== 'undefined') {
       try {
         await logoutUser(token);
         localStorage.removeItem('token');
@@ -94,8 +101,16 @@ export default function Home() {
         console.error('Logout failed:', err);
         setMessage('Logout failed. Please try again.');
       } 
+    } else if (token === 'undefined') {
+      try {
+        localStorage.removeItem('token');
+        alert("You are already logged out.");
+      } catch (err) {
+        console.log("Error removing token: ", err);
+        {/** Do nothing more, all good */}
+      }
     } else {
-      alert("Already logged out.");
+      alert("You are already logged out.");
     }
   };
 
@@ -119,11 +134,12 @@ export default function Home() {
               onLogoutClick={handleLogoutClick}
               onChatClick={handleChatClick}
               onUsersClick={handleUsersClick} 
-              onServerClick={handlePingClick}
+              onServerClick={handleServerClick}
               onTokenClick={handleCheckToken}
             />
           </div>
           <div className="flex flex-col rounded-lg items-center justify-center min-h-[80vh] bg-gray-100 w-11/12">
+            {currentView === 'server' && <ServerAddress />}
             {currentView === 'register' && <Register />}
             {currentView === 'login' && <Login />}
             {currentView === 'users' && <UserList onUserSelect={handleUserSelect} />}
