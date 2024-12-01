@@ -11,6 +11,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 To run the project first clone the repository with `git clone`.
 Node.js is required for serverside JavaScript execution.
 Node Package Manager was used in the project, it's advised to use npm to run the application.
+There seems to be a small bug present, when the application is started the first time and the buttons on the sidebar are not working correctly - just refresh the page.
 
 **Install Node.js on Fedora**
 ```shell
