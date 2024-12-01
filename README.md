@@ -1,8 +1,8 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
 # Project Documentation
 Demo of the Application: **demo.gif**
 ![Demo](github-media/demo.gif "Demo")
+
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 ## Project Contributors
 👨🏽‍💻 Manuel Notter
 
@@ -160,3 +160,155 @@ When clicking `Logout` the current user is logged out, the token and the usernam
 <p align="center">
     <img src="github-media/logged-out.png" width="60%" height="auto" allign-center>
 </p>
+
+## Code Structure
+### Layout
+Layout does not have much content. As it is a single page application, only the contents of `page.tsx` in the app folder accessing `layout.tsx`.
+
+```tsx
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+
+          {children}
+
+      </body>
+    </html>
+  );
+}
+```
+
+### Main Page
+The main page `page.tsx` is the entry point to the application. It renders the different components depending on the set view.
+
+```tsx
+<div className="flex items-center space-x-5 w-full">
+          <div className="flex rounded-lg items-center justify-center bg-background w-1/12">
+            <Sidebar
+              onRegisterClick={handleRegisterClick}
+              onLoginClick={handleLoginClick}
+              onLogoutClick={handleLogoutClick}
+              onChatClick={handleChatClick}
+              onUsersClick={handleUsersClick} 
+              onServerClick={handleServerClick}
+              onTokenClick={handleCheckToken}
+            />
+          </div>
+          <div className="flex flex-col rounded-lg items-center justify-center min-h-[80vh] bg-gray-100 w-11/12">
+            {currentView === 'server' && <ServerAddress />}
+            {currentView === 'register' && <Register />}
+            {currentView === 'login' && <Login />}
+            {currentView === 'users' && <UserList onUserSelect={handleUserSelect} />}
+            {currentView === 'chat' && selectedUser && <Chat chatWith={selectedUser} />}
+            {currentView === 'welcome' && (
+              <>
+                <h1 className="text-5xl font-medium subpixel-antialiased text-medium font-leckerli">Welcome to ChatApp!</h1>
+                <p className="mt-4 text-lg font-bold text-dark">
+                  Connect with friends and start chatting...
+                </p>
+                {message && <p className="mt-2 text-green-500">{message}</p>}
+              </>
+            )}
+          </div>
+        </div>
+```
+
+It is also the place where the functionality of the Sidebar Buttons is defined. This is an example of for the `Login` click.
+
+```tsx
+  const handleLoginClick = () => {
+    const token = localStorage.getItem('token');
+    if (token !== null && token !== 'undefined') {
+      alert("You are already logged in as: " + localStorage.getItem('username'));
+      console.log(localStorage.getItem('token'));
+    } else {
+      setCurrentView('login');
+    }
+  };
+```
+
+### Components
+The different components in the component folder provide the content to be rendered on the main page.
+All of them are structured similarly:
+
+**Imports**
+```tsx
+import React, { useState } from 'react';
+import { loginUser } from '../services/api';
+```
+
+**Component Definition**
+```tsx
+const Login = () => {
+```
+
+**State Variables using a react hook**
+```tsx
+const [username, setUsername] = useState('');
+const [password, setPassword] = useState('');
+const [error, setError] = useState('');
+const [success, setSuccess] = useState('');
+```
+
+**Event Handlers**
+```tsx
+const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setSuccess('');
+
+    try {
+      const response = await loginUser(username, password);
+      const token = response.data.token; 
+      localStorage.setItem('token', token); 
+      console.log('Token: ' + localStorage.getItem('token'));
+      setUsername('');
+      setPassword('');
+      ...
+```
+
+**JSX to render the Component**
+```tsx
+  return (
+    <div className="flex flex-col items-center">
+      <h2 className="text-2xl font-bold text-dark">Login to Your Account</h2>
+      <form onSubmit={handleLogin} className="flex flex-col mt-4">
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className="mb-2 p-2 border rounded text-dark"
+          required
+        />
+        ...
+```
+
+**Exporting of the Component**
+```tsx
+export default Login;
+```
+
+### Services
+There is only one service used in this project so far. It handles the API calls for the web application. The service uses the `Axios` library.
+
+**Exporting of the setApiUrl function**
+```tsx
+export const setApiUrl = (url) => {
+  API_URL = url;
+  axios.defaults.baseURL = API_URL;
+};
+```
+
+**Exporting the different API-Calls Functions**
+```tsx
+export const pingServer = () => axios.get(`${API_URL}/ping`);
+
+export const checkToken = (token) => 
+  axios.post(`${API_URL}/ping`, { token });
+```
