@@ -1,6 +1,7 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 # Project Documentation
+Demo of the Application: **demo.gif**
 ![Demo](github-media/demo.gif "Demo")
 ## Project Contributors
 👨🏽‍💻 Manuel Notter
@@ -98,44 +99,44 @@ The Application consists of the main window, as well as the sidebar. In the side
 
 When starting the client, the user can view, set and ping the current server address by clicking on the `Server` button.
 
-<div style="text-align: center;">
+<p align="center">
     <img src="github-media/server.png" width="60%" height="auto" allign-center>
-</div>
+</p>
 
 After login, the current token can be verified by clicking on the `Token` button.
 
-<div style="text-align: center;">
+<p align="center">
     <img src="github-media/check-token.png" width="60%" height="auto" allign-center>
-</div>
+</p>
 
 Using `Login` and `Register`, users can create an account and login to their account. When users are logged in, they can check their current account by clicking on the `Login` button again. Registering an account requires users to logout again.
 
-<div style="text-align: center;">
+<p align="center">
     <img src="github-media/register.png" width="60%" height="auto" allign-center>
-</div>
+</p>
 <br>
-<div style="text-align: center;">
+<p align="center">
     <img src="github-media/login.png" width="60%" height="auto" allign-center>
-</div>
+</p>
 
 To see users, or to chat with a user, users must be logged in.
 
-<div style="text-align: center;">
+<p align="center">
     <img src="github-media/not-logged-in.png" width="60%" height="auto" allign-center>
-</div>
+</p>
 
 When logged in, users can view the accounts registered on the server by clicking on the `User` button. This is only a debug functionality, but I have impmenented it for selecting a user to chat with. As stated, in a real-world application this would not be good practice. But in chat applications, there almost always is a list of friends for example. So this functionality could be seen as a 'Friends List' for this project.
 
-<div style="text-align: center;">
+<p align="center">
     <img src="github-media/select-user.png" width="60%" height="auto" allign-center>
-</div>
+</p>
 
 When clicking on a user, and then on `Chat`, the chat window opens.
 For debugging, one can also chat with himself to see if messages are received.
 
-<div style="text-align: center;">
+<p align="center">
     <img src="github-media/chat.png" width="60%" height="auto" allign-center>
-</div>
+</p>
 
 **EDIT:**
 The API endpoint `/users` from the server `http://javaprojects.ch:5001` seems to have been disabled. The endpoint `/users/online` is still working at this time. I have adjusted to select the users from the returned list of online users, which makes more sense anyway. Additionally, to prevent the application not working if this endpoint will get disabled as well, I have implemented a text input field, to choose the username manually. I think this is not a great solution and i like the list better, but now the app will work in any case. It's to be noted, that when entering a username that does not exist, the user will just show as offline.
@@ -156,6 +157,6 @@ When the chat window is opened, the online status of the current user is indicat
 
 When clicking `Logout` the current user is logged out, the token and the username are deleted from local storage on the client side, and also from the server.
 
-<div style="text-align: center;">
+<p align="center">
     <img src="github-media/logged-out.png" width="60%" height="auto" allign-center>
-</div>
+</p>
