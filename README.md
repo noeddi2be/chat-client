@@ -26,9 +26,7 @@ The App is a single page application accessible on `http://localhost:3000`.
 
 
 ## Demo: 
-<br>
-![](github-media/demo.gif "Demo")
-<br>
+![Demo](github-media/demo.gif "Demo")
 
 #### Problems faced:
 ```typescript
