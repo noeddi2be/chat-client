@@ -92,9 +92,9 @@ All the API calls are handled in this file and imported to where they are needed
 ## Functionality
 The Application consists of the main window, as well as the sidebar. In the sidebar, different buttons are available to provide all the functionality of the application.
 
-<div style="text-align: center;">
+<p align="center">
     <img src="github-media/main.png" width="80%" height="auto" allign-center>
-</div>
+</p>
 
 When starting the client, the user can view, set and ping the current server address by clicking on the `Server` button.
 
